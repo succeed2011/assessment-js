@@ -10,25 +10,21 @@ exports.stripPrivateProperties = (properties, objectArray) => {
     return objectArray;
   }
 
-  const newObjectArray = objectArray.map(item => {
+  return objectArray.map(item => {
     const temp = { ...item };
     properties.forEach(prop => {
       delete temp[prop]
     })
     return temp;
   })
-
-  return newObjectArray
 };
 
 exports.excludeByProperty = (property, objectArray) => {
-  const newObjectArray = objectArray.filter(item => !item.hasOwnProperty(property));
-
-  return newObjectArray;
+  return objectArray.filter(item => !item.hasOwnProperty(property));
 };
 
 exports.sumDeep = (objectArray) => {
-  const newObjectArray = objectArray.map(item => {
+  return objectArray.map(item => {
     let sum = 0;
     if (Array.isArray(item.objects)) {
       item.objects.forEach(valObject => {
@@ -38,8 +34,6 @@ exports.sumDeep = (objectArray) => {
 
     return { objects: sum }
   });
-
-  return newObjectArray;
 };
 
 exports.applyStatusColor = (colorObject, codeObjectArray) => {
@@ -59,12 +53,12 @@ exports.applyStatusColor = (colorObject, codeObjectArray) => {
   })
 };
 
-
 exports.createGreeting = (currFun, ...argsInit) => {
   return (...args) => {
     return currFun.apply(null, argsInit.concat(args));
   }
 };
+
 exports.setDefaults = (defaultProperties) => {
   return (object) => {
     return {
@@ -73,6 +67,7 @@ exports.setDefaults = (defaultProperties) => {
     }
   }
 };
+
 exports.fetchUserByNameAndUsersCompany = async (username, services) => {
   let company = null;
   let status = await services.fetchStatus();
