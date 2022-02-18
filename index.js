@@ -73,14 +73,13 @@ exports.fetchUserByNameAndUsersCompany = async (username, services) => {
   let status = await services.fetchStatus();
   let user = null;
 
-  if (!username) {
-    return null;
-  }
-  const users = await services.fetchUsers();
-  user = users.find(user => user.name === username);
+  if (username) {
+    const users = await services.fetchUsers();
+    user = users.find(user => user.name === username);
 
-  if (user) {
-    company = await services.fetchCompanyById(user.companyId);
+    if (user) {
+      company = await services.fetchCompanyById(user.companyId);
+    }
   }
 
   return {
